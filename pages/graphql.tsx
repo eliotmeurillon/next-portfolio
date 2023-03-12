@@ -2,7 +2,31 @@ import { GraphQLClient } from "graphql-request";
 
 const GITHUB_API_URL = "https://api.github.com/graphql";
 
-export async function fetchRepositories(token: string | undefined) {
+interface RepositoriesData {
+  viewer: {
+    repositories: {
+      nodes: {
+        name: string;
+        description: string;
+        url: string;
+        updatedAt: string;
+        primaryLanguage: {
+          name: string;
+          color: string;
+        } | null;
+        repositoryTopics: {
+          nodes: {
+            topic: {
+              name: string;
+            };
+          }[];
+        };
+      }[];
+    };
+  };
+}
+
+export async function fetchRepositories(token: any) {
   const graphQLClient = new GraphQLClient(GITHUB_API_URL, {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -35,7 +59,7 @@ export async function fetchRepositories(token: string | undefined) {
   }
 `;
 
-  const data = await graphQLClient.request(query);
+  const data = await graphQLClient.request<RepositoriesData>(query);
 
   return data.viewer.repositories.nodes;
 }

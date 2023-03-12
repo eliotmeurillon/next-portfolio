@@ -1,8 +1,26 @@
 import { useState, useEffect } from "react";
 import { fetchRepositories } from "./graphql";
 
+interface Repository {
+  name: string;
+  description: string | null;
+  url: string;
+  updatedAt: string;
+  primaryLanguage: {
+    name: string;
+    color: string;
+  } | null;
+  repositoryTopics: {
+    nodes: {
+      topic: {
+        name: string;
+      };
+    }[];
+  };
+}
+
 function Repositories() {
-  const [repositories, setRepositories] = useState([]);
+  const [repositories, setRepositories] = useState<Repository[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
