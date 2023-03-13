@@ -1,10 +1,22 @@
 import { useState, useEffect } from "react";
 
 interface Repo {
-  id: number;
+  id: string;
   name: string;
-  html_url: string;
-  description: string;
+  description?: string;
+  url: string;
+  updatedAt: string;
+  primaryLanguage?: {
+    name: string;
+    color: string;
+  };
+  repositoryTopics?: {
+    nodes: {
+      topic: {
+        name: string;
+      };
+    }[];
+  };
 }
 
 export default function Fetch() {
@@ -27,7 +39,12 @@ export default function Fetch() {
           <li key={repo.id}>
             <h2>{repo.name}</h2>
             <p>{repo.description}</p>
-            <a href={repo.html_url}>Visit Repo</a>
+            <a href={repo.url}>Visit Repo</a>
+            <ul>
+              {repo.repositoryTopics?.nodes?.map((topic) => (
+                <li key={topic.topic.name}>{topic.topic.name}</li>
+              ))}
+            </ul>
           </li>
         ))}
       </ul>

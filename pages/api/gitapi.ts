@@ -4,16 +4,19 @@ import { GraphQLClient } from "graphql-request";
 interface Repo {
   id: string;
   name: string;
-}
-
-interface Response {
-  viewer: {
-    repositories: {
-      nodes: {
-        id: string;
+  description?: string;
+  url: string;
+  updatedAt: string;
+  primaryLanguage?: {
+    name: string;
+    color: string;
+  };
+  repositoryTopics?: {
+    nodes: {
+      topic: {
         name: string;
-      }[];
-    };
+      };
+    }[];
   };
 }
 
@@ -29,39 +32,41 @@ export default async function handler(
     });
 
     const query = `
-    query {
-      viewer {
-        repositories(first: 100, orderBy: { field: NAME, direction: ASC }) {
-          nodes {
-            name
-            description
-            url
-            updatedAt
-            primaryLanguage {
+      query {
+        viewer {
+          repositories(first: 100, orderBy: { field: NAME, direction: ASC }) {
+            nodes {
+              id
               name
-              color
-            }
-            repositoryTopics(first: 10) {
-              nodes {
-                topic {
-                  name
+              description
+              url
+              updatedAt
+              primaryLanguage {
+                name
+                color
+              }
+              repositoryTopics(first: 10) {
+                nodes {
+                  topic {
+                    name
+                  }
                 }
               }
             }
           }
         }
       }
-    }
-  `;
+    `;
 
-    const data: Response = await graphQLClient.request(query);
+    const data = await graphQLClient.request<{
+      viewer: {
+        repositories: {
+          nodes: Repo[];
+        };
+      };
+    }>(query);
 
-    const repos: Repo[] = data.viewer.repositories.nodes.map((repo) => ({
-      id: repo.id,
-      name: repo.name,
-    }));
-
-    res.status(200).json(repos);
+    res.status(200).json(data.viewer.repositories.nodes);
   } catch (error) {
     console.error(error);
     res
