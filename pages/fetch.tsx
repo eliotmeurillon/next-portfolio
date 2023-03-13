@@ -37,14 +37,19 @@ export default function Fetch() {
 
   useEffect(() => {
     if (carousel.current) {
-      setWidth(carousel.current.scrollWidth - carousel.current.offsetWidth);
+      setWidth(
+        carousel.current.scrollWidth - carousel.current.offsetWidth + 10
+      );
     }
   }, [repos]);
 
   return (
     <div className="bg-gray-200">
       <h1 className="text-3xl font-bold underline">Mes Repositories GitHub</h1>
-      <motion.div ref={carousel} className="carousel overflow-hidden">
+      <motion.div
+        ref={carousel}
+        className="carousel overflow-hidden cursor-grabbing"
+      >
         <motion.div
           drag="x"
           dragConstraints={{ right: 0, left: -width }}
@@ -52,7 +57,7 @@ export default function Fetch() {
         >
           {repos.map((repo) => (
             <motion.div
-              className="item rounded-lg shadow-lg m-3 bg-white"
+              className="item rounded-lg shadow-lg p-3 m-3 min-w-fit bg-white"
               key={repo.id}
             >
               <h2 className="text-xl">{repo.name}</h2>
