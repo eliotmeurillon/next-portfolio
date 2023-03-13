@@ -33,7 +33,7 @@ export default function Fetch() {
 
   return (
     <div>
-      <h1>Mes Repositories GitHub</h1>
+      <h1 className="text-3xl font-bold underline">Mes Repositories GitHub</h1>
       <ul>
         {repos.map((repo) => (
           <li key={repo.id}>
