@@ -5,7 +5,7 @@ export default async function handler(
   res: NextApiResponse
 ) {
   try {
-    const accessToken = process.env.GITHUB_TOKEN;
+    const accessToken = process.env.NEXT_PUBLIC_GITHUB_TOKEN;
     const response = await fetch("https://api.github.com/user/repos", {
       headers: {
         Authorization: `token ${accessToken}`,
