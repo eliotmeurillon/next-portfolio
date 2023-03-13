@@ -1,64 +1,36 @@
 import { useState, useEffect } from "react";
-import { fetchRepositories } from "./graphql";
 
-interface Repository {
+interface Repo {
+  id: number;
   name: string;
-  description: string | null;
-  url: string;
-  updatedAt: string;
-  primaryLanguage: {
-    name: string;
-    color: string;
-  } | null;
-  repositoryTopics: {
-    nodes: {
-      topic: {
-        name: string;
-      };
-    }[];
-  };
+  html_url: string;
+  description: string;
 }
 
-function Repositories() {
-  const [repositories, setRepositories] = useState<Repository[]>([]);
-  const [loading, setLoading] = useState(true);
+export default function Fetch() {
+  const [repos, setRepos] = useState<Repo[]>([]);
 
   useEffect(() => {
-    async function fetchData() {
-      const token = process.env.GITHUB_TOKEN;
-      const repos = await fetchRepositories(token);
-      setRepositories(repos);
-      setLoading(false);
+    async function fetchRepos() {
+      const response = await fetch("/api/gitapi");
+      const data: Repo[] = await response.json();
+      setRepos(data);
     }
-
-    fetchData();
+    fetchRepos();
   }, []);
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
 
   return (
     <div>
-      {repositories.map((repo) => (
-        <div key={repo.url}>
-          <h3>{repo.name}</h3>
-          <p>{repo.description}</p>
-          <p>Last updated: {repo.updatedAt}</p>
-          <p>
-            Language:{" "}
-            {repo.primaryLanguage ? repo.primaryLanguage.name : "Unknown"}
-          </p>
-          <p>
-            Topics:{" "}
-            {repo.repositoryTopics.nodes
-              .map((node) => node.topic.name)
-              .join(", ")}
-          </p>
-        </div>
-      ))}
+      <h1>Mes Repositories GitHub</h1>
+      <ul>
+        {repos.map((repo) => (
+          <li key={repo.id}>
+            <h2>{repo.name}</h2>
+            <p>{repo.description}</p>
+            <a href={repo.html_url}>Visit Repo</a>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
-
-export default Repositories;
