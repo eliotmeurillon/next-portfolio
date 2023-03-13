@@ -29,17 +29,30 @@ export default async function handler(
     });
 
     const query = `
-      query {
-        viewer {
-          repositories(first: 10) {
-            nodes {
-              id
+    query {
+      viewer {
+        repositories(first: 100, orderBy: { field: NAME, direction: ASC }) {
+          nodes {
+            name
+            description
+            url
+            updatedAt
+            primaryLanguage {
               name
+              color
+            }
+            repositoryTopics(first: 10) {
+              nodes {
+                topic {
+                  name
+                }
+              }
             }
           }
         }
       }
-    `;
+    }
+  `;
 
     const data: Response = await graphQLClient.request(query);
 
