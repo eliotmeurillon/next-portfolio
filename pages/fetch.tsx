@@ -32,17 +32,24 @@ export default function Fetch() {
   }, []);
 
   return (
-    <div>
+    <div className="bg-gray-200">
       <h1 className="text-3xl font-bold underline">Mes Repositories GitHub</h1>
-      <ul>
+      <ul className="">
         {repos.map((repo) => (
-          <li key={repo.id}>
-            <h2>{repo.name}</h2>
+          <li className="rounded-lg shadow-lg m-3 bg-white" key={repo.id}>
+            <h2 className="text-xl">{repo.name}</h2>
             <p>{repo.description}</p>
-            <a href={repo.url}>Visit Repo</a>
+            <a className="text-base" href={repo.url}>
+              Visit Repo
+            </a>
             <ul>
               {repo.repositoryTopics?.nodes?.map((topic) => (
-                <li key={topic.topic.name}>{topic.topic.name}</li>
+                <li
+                  className="inline-flex items-center justify-center px-2 py-1 mr-2 text-xs font-bold leading-none text-red-100 bg-red-600 rounded-full"
+                  key={topic.topic.name}
+                >
+                  {topic.topic.name}
+                </li>
               ))}
             </ul>
           </li>
