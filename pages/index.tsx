@@ -27,8 +27,10 @@ export default function Home() {
         {localStorageAvailable && <Switcher />}
       </header>
       <main>
-        <div className="bg-gray-100 dark:bg-black">
-          <h1 className="text-black dark:text-white">GeeksforGeeks</h1>
+        <div className="flex items-center justify-center bg-gray-100 dark:bg-black h-screen">
+          <h1 className="text-black dark:text-white">
+            Design by Bertone by Eliot
+          </h1>
         </div>
       </main>
     </>
