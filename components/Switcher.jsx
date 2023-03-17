@@ -16,22 +16,18 @@ export default function Switcher() {
   };
 
   return (
-    <motion.div className="bg-green-500 rounded-full p-1">
+    <motion.div
+      size={30}
+      whileTap={{ scale: 0.9 }}
+      className="bg-green-500 rounded-full p-1"
+    >
       {darkSide ? (
         <motion.div className="" animate={{ rotate: 360 }}>
-          <BsFillMoonFill
-            className="fill-white"
-            onClick={toggleDarkMode}
-            size={30}
-          />
+          <BsFillMoonFill color="white" onClick={toggleDarkMode} />
         </motion.div>
       ) : (
         <motion.div animate={{ rotate: 0 }}>
-          <HiOutlineSun
-            className="stroke-white"
-            onClick={toggleDarkMode}
-            size={30}
-          />
+          <HiOutlineSun color="white" onClick={toggleDarkMode} />
         </motion.div>
       )}
     </motion.div>
