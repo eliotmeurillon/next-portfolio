@@ -11,6 +11,8 @@ export default function Switcher() {
   );
 
   const toggleDarkMode = () => {
+    /*
+      // @ts-ignore */
     setTheme(darkSide ? "light" : "dark");
     setDarkSide(!darkSide);
   };
@@ -18,7 +20,7 @@ export default function Switcher() {
   return (
     <motion.button
       whileHover={{
-        scale: 1.2,
+        scale: 1.05,
         transition: { duration: 1 },
       }}
       whileTap={{ scale: 0.9 }}
