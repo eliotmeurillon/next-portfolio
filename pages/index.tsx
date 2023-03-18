@@ -17,6 +17,7 @@ export default function Home() {
 
   useEffect(() => {
     if (headerRef.current) {
+      // @ts-ignore
       const headerHeight = headerRef.current.offsetHeight;
       const py6Element = document.querySelector(".py-6");
       if (py6Element) {
