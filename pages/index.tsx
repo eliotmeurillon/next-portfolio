@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Head from "next/head";
 import Image from "next/image";
 import { Inter } from "next/font/google";
@@ -9,10 +9,21 @@ const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
   const [localStorageAvailable, setLocalStorageAvailable] = useState(false);
+  const headerRef = useRef(null);
 
   useEffect(() => {
     setLocalStorageAvailable(!!window.localStorage);
   }, []);
+
+  useEffect(() => {
+    if (headerRef.current) {
+      const headerHeight = headerRef.current.offsetHeight;
+      const py6Element = document.querySelector(".py-6");
+      if (py6Element) {
+        py6Element.className = `py-[calc(6+${headerHeight}px)]`;
+      }
+    }
+  }, [headerRef]);
 
   return (
     <>
@@ -22,14 +33,17 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <header className="fixed top-0 left-0 right-0 bg-white dark:bg-darkBlue-500 dark:text-white">
+      <header
+        className="fixed top-0 left-0 right-0 bg-white dark:bg-darkBlue-500 dark:text-white"
+        ref={headerRef}
+      >
         <div className="flex justify-between items-center p-3">
           <h1>Welcome to Next.js!</h1>
           {localStorageAvailable && <Switcher />}
         </div>
       </header>
-      <main>
-        <div className="flex items-center justify-center bg-gray-100 dark:bg-darkBlue-600 h-screen">
+      <main className="flex justify-center bg-gray-100 dark:bg-darkBlue-600 h-screen">
+        <div className="py-6">
           <h1 className="text-black dark:text-white">
             Design by Bertone by Eliot
           </h1>
