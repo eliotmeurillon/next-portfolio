@@ -100,12 +100,12 @@ export default function Home({ supabase }: HomeProps) {
           </div>
           {activeTab === "portfolio" && <Portfolio />}
           {activeTab === "about" && <About />}
-          {testRepos.map((test) => (
+          {/* {testRepos.map((test) => (
             <div key={test.id}>
               <h2>{test.title}</h2>
               <p>{test.content}</p>
             </div>
-          ))}
+          ))} */}
         </div>
       </main>
     </>
