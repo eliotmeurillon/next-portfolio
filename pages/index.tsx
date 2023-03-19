@@ -61,9 +61,23 @@ export default function Home() {
               <FiLinkedin />
             </button>
           </div>
-          <div className="flex flex-row">
-            <button onClick={handlePortfolioClick}>Portfolio</button>
-            <button onClick={handleAboutClick}>À propos</button>
+          <div className="flex flex-row justify-evenly bg-white rounded-2xl py-3">
+            <button
+              className={`h-12 rounded-xl ${
+                activeTab === "portfolio" ? "bg-gray-100" : ""
+              }`}
+              onClick={handlePortfolioClick}
+            >
+              Portfolio
+            </button>
+            <button
+              className={`h-12 rounded-xl ${
+                activeTab === "about" ? "bg-gray-100" : ""
+              }`}
+              onClick={handleAboutClick}
+            >
+              À propos
+            </button>
           </div>
           {activeTab === "portfolio" && <Portfolio />}
           {activeTab === "about" && <About />}
