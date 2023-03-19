@@ -32,7 +32,10 @@ export default function Fetch({ supabase }: any) {
 
   useEffect(() => {
     async function getRepos() {
-      const { data: repos, error } = await supabase.from("repos").select("*");
+      const { data: repos, error } = await supabase
+        .from("repos")
+        .select("*")
+        .order("name", { ascending: true });
       if (error) console.error(error);
       if (repos) setRepos(repos);
     }
