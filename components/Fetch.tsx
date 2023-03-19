@@ -26,13 +26,17 @@ interface Test {
   content: string;
 }
 
-export default function Fetch() {
+export default function Fetch({ supabase }: any) {
   const [repos, setRepos] = useState<Repo[]>([]);
   const [testRepos, setTestRepos] = useState<Test[]>([]);
 
   useEffect(() => {
-    const data: Repo[] = require("../json/repos.json");
-    setRepos(data);
+    async function getRepos() {
+      const { data: repos, error } = await supabase.from("repos").select("*");
+      if (error) console.error(error);
+      if (repos) setRepos(repos);
+    }
+    getRepos();
   }, []);
 
   return (

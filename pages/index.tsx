@@ -16,11 +16,7 @@ interface Test {
   content: string;
 }
 
-interface HomeProps {
-  supabase: any;
-}
-
-export default function Home({ supabase }: HomeProps) {
+export default function Home({ supabase }: any) {
   const [localStorageAvailable, setLocalStorageAvailable] = useState(false);
   const [activeTab, setActiveTab] = useState("portfolio");
   const [testRepos, setTestRepos] = useState<Test[]>([]);
@@ -98,14 +94,8 @@ export default function Home({ supabase }: HomeProps) {
               À propos
             </button>
           </div>
-          {activeTab === "portfolio" && <Portfolio />}
+          {activeTab === "portfolio" && <Portfolio supabase={supabase} />}
           {activeTab === "about" && <About />}
-          {/* {testRepos.map((test) => (
-            <div key={test.id}>
-              <h2>{test.title}</h2>
-              <p>{test.content}</p>
-            </div>
-          ))} */}
         </div>
       </main>
     </>
