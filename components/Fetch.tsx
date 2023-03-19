@@ -24,12 +24,8 @@ export default function Fetch() {
   const [repos, setRepos] = useState<Repo[]>([]);
 
   useEffect(() => {
-    async function fetchRepos() {
-      const response = await fetch("/api/gitapi");
-      const data: Repo[] = await response.json();
-      setRepos(data);
-    }
-    fetchRepos();
+    const data: Repo[] = require("../json/repos.json");
+    setRepos(data);
   }, []);
 
   return (
