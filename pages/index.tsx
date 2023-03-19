@@ -3,9 +3,23 @@ import Head from "next/head";
 import Image from "next/image";
 import styles from "@/styles/Home.module.css";
 import Switcher from "@/components/Switcher";
+import Portfolio from "@/components/Portfolio";
+import About from "@/components/About";
+import { HiDownload } from "react-icons/hi";
+import { HiOutlineMail } from "react-icons/hi";
+import { FiLinkedin } from "react-icons/fi";
 
 export default function Home() {
   const [localStorageAvailable, setLocalStorageAvailable] = useState(false);
+  const [activeTab, setActiveTab] = useState("portfolio");
+
+  const handlePortfolioClick = () => {
+    setActiveTab("portfolio");
+  };
+
+  const handleAboutClick = () => {
+    setActiveTab("about");
+  };
 
   useEffect(() => {
     setLocalStorageAvailable(!!window.localStorage);
@@ -25,16 +39,34 @@ export default function Home() {
           {localStorageAvailable && <Switcher />}
         </div>
       </header>
-      <main className="flex justify-center bg-gray-100 dark:bg-darkBlue-600 h-screen">
-        <div className="py-[calc(1.5rem+4rem)] px-4 w-full">
-          <div className="flex flex-col text-left font-poppins">
+      <main className="flex justify-center bg-gray-100 dark:bg-darkBlue-600 h-screen font-poppins">
+        <div className="py-[calc(1.5rem+4rem)] px-4 w-full space-y-4">
+          <div className="flex flex-col text-left ">
             <h1 className="text-black dark:text-white text-3xl font-semibold">
-              Meurillon Eliot
+              Eliot Meurillon
             </h1>
             <h2 className="text-black dark:text-white text-base font-normal">
               Développeur Full-Stack
             </h2>
           </div>
+          <div className="flex flex-row justify-evenly py-3 px-3 space-x-3">
+            <div className="flex flex-row items-center h-11 px-6 space-x-2 bg-green-500 rounded-lg">
+              <button>Download CV</button>
+              <HiDownload />
+            </div>
+            <button className="h-11 px-6 bg-white rounded-lg">
+              <HiOutlineMail />
+            </button>
+            <button className="h-11 px-6 bg-white rounded-lg">
+              <FiLinkedin />
+            </button>
+          </div>
+          <div className="flex flex-row">
+            <button onClick={handlePortfolioClick}>Portfolio</button>
+            <button onClick={handleAboutClick}>À propos</button>
+          </div>
+          {activeTab === "portfolio" && <Portfolio />}
+          {activeTab === "about" && <About />}
         </div>
       </main>
     </>
