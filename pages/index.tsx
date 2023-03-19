@@ -10,7 +10,7 @@ import { HiOutlineMail } from "react-icons/hi";
 import { FiLinkedin } from "react-icons/fi";
 import Test from "@/components/Test";
 
-export default function Home({ supabase }) {
+export default function Home({ supabase }: any) {
   const [localStorageAvailable, setLocalStorageAvailable] = useState(false);
   const [activeTab, setActiveTab] = useState("portfolio");
 
