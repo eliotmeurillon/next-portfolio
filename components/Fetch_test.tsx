@@ -44,8 +44,7 @@ export default function Fetch() {
   }, [repos]);
 
   return (
-    <div className="bg-gray-200">
-      <h1 className="text-3xl font-bold underline">Mes Repositories GitHub</h1>
+    <div>
       <motion.div
         ref={carousel}
         className="carousel overflow-hidden cursor-grabbing"

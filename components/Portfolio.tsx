@@ -1,7 +1,4 @@
+import Fetch from "@/components/Fetch";
 export default function Portfolio() {
-  return (
-    <div>
-      <h1>Portfolio</h1>
-    </div>
-  );
+  return <Fetch />;
 }
