@@ -39,8 +39,8 @@ export default function Home() {
           {localStorageAvailable && <Switcher />}
         </div>
       </header>
-      <main className="flex justify-center bg-gray-100 dark:bg-darkBlue-600 font-poppins">
-        <div className="py-[calc(1.5rem+4rem)] px-4 w-full space-y-4">
+      <main className="flex justify-center bg-gray-100 dark:bg-darkBlue-600 font-poppins ">
+        <div className="py-[calc(1.5rem+4rem)] px-4  space-y-4 w-full md:max-w-3xl">
           <div className="flex flex-col text-left ">
             <h1 className="text-black dark:text-white text-3xl font-semibold">
               Eliot Meurillon
