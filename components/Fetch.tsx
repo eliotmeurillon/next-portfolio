@@ -20,8 +20,15 @@ interface Repo {
   };
 }
 
+interface Test {
+  id: string;
+  title: string;
+  content: string;
+}
+
 export default function Fetch() {
   const [repos, setRepos] = useState<Repo[]>([]);
+  const [testRepos, setTestRepos] = useState<Test[]>([]);
 
   useEffect(() => {
     const data: Repo[] = require("../json/repos.json");

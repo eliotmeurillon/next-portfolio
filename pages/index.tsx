@@ -8,8 +8,9 @@ import About from "@/components/About";
 import { HiDownload } from "react-icons/hi";
 import { HiOutlineMail } from "react-icons/hi";
 import { FiLinkedin } from "react-icons/fi";
+import Test from "@/components/Test";
 
-export default function Home() {
+export default function Home({ supabase }) {
   const [localStorageAvailable, setLocalStorageAvailable] = useState(false);
   const [activeTab, setActiveTab] = useState("portfolio");
 
@@ -23,6 +24,11 @@ export default function Home() {
 
   useEffect(() => {
     setLocalStorageAvailable(!!window.localStorage);
+    // sendTest(
+    //   { supabase },
+    //   "Mon premier test",
+    //   "Ceci est un test pour supabase et nextjs"
+    // );
   }, []);
 
   return (
@@ -81,6 +87,7 @@ export default function Home() {
           </div>
           {activeTab === "portfolio" && <Portfolio />}
           {activeTab === "about" && <About />}
+          <Test supabase={supabase} />
         </div>
       </main>
     </>
