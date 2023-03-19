@@ -10,9 +10,20 @@ import { HiOutlineMail } from "react-icons/hi";
 import { FiLinkedin } from "react-icons/fi";
 import Test from "@/components/Test";
 
-export default function Home({ supabase }: any) {
+interface Test {
+  id: string;
+  title: string;
+  content: string;
+}
+
+interface HomeProps {
+  supabase: any;
+}
+
+export default function Home({ supabase }: HomeProps) {
   const [localStorageAvailable, setLocalStorageAvailable] = useState(false);
   const [activeTab, setActiveTab] = useState("portfolio");
+  const [testRepos, setTestRepos] = useState<Test[]>([]);
 
   const handlePortfolioClick = () => {
     setActiveTab("portfolio");
@@ -24,11 +35,13 @@ export default function Home({ supabase }: any) {
 
   useEffect(() => {
     setLocalStorageAvailable(!!window.localStorage);
-    // sendTest(
-    //   { supabase },
-    //   "Mon premier test",
-    //   "Ceci est un test pour supabase et nextjs"
-    // );
+    const fetchData = async () => {
+      const response = await fetch("/api/supabase");
+      const data = await response.json();
+      setTestRepos(data);
+    };
+
+    fetchData();
   }, []);
 
   return (
@@ -87,7 +100,12 @@ export default function Home({ supabase }: any) {
           </div>
           {activeTab === "portfolio" && <Portfolio />}
           {activeTab === "about" && <About />}
-          <Test supabase={supabase} />
+          {testRepos.map((test) => (
+            <div key={test.id}>
+              <h2>{test.title}</h2>
+              <p>{test.content}</p>
+            </div>
+          ))}
         </div>
       </main>
     </>
