@@ -14,7 +14,7 @@ const supabase = createClient(
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<Test[]>
+  res: NextApiResponse<Test[] | { error: string } | typeof data>
 ) {
   const { data, error } = await supabase
     .from("tests")
