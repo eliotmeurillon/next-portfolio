@@ -12,10 +12,10 @@ interface Repo {
     name: string;
     color: string;
   };
-  repositoryTopics: {
+  repositoryTopics?: {
     nodes: {
       topic: {
-        name: string | null;
+        name: string;
       };
     }[];
   };
