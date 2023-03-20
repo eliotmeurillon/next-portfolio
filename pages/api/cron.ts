@@ -6,6 +6,17 @@ interface Repository {
   name: string;
   description: string | null;
   url: string;
+  primmaryLanguage: {
+    name: string | null;
+    color: string | null;
+  };
+  repositoryTopics: {
+    nodes: {
+      topic: {
+        name: string | null;
+      };
+    }[];
+  };
 }
 
 interface Viewer {
@@ -37,6 +48,17 @@ export default async function handler(
               name
               description
               url
+              primaryLanguage {
+                name
+                color
+              }
+              repositoryTopics(first: 100) {
+                nodes {
+                  topic {
+                    name
+                  }
+                }
+              }
             }
           }
         }
