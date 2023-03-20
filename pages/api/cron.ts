@@ -10,13 +10,13 @@ interface Repository {
     name: string | null;
     color: string | null;
   };
-  repositoryTopics: {
+  repositoryTopics?: {
     nodes: {
       topic: {
         name: string;
       };
     }[];
-  } | null;
+  };
 }
 
 interface Viewer {
@@ -52,7 +52,7 @@ export default async function handler(
                 name
                 color
               }
-              repositoryTopics(first: 100) {
+              repositoryTopics(first: 10) {
                 nodes {
                   topic {
                     name
