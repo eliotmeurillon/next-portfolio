@@ -11,14 +11,12 @@ interface Repository {
     color: string | null;
   };
   repositoryTopics: {
-    nodes:
-      | {
-          topic: {
-            name: string;
-          };
-        }[]
-      | null;
-  };
+    nodes: {
+      topic: {
+        name: string;
+      };
+    }[];
+  } | null;
 }
 
 interface Viewer {
