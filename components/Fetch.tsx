@@ -28,7 +28,8 @@ interface Test {
 
 export default function Fetch({ supabase }: any) {
   const [repos, setRepos] = useState<Repo[]>([]);
-  const [testRepos, setTestRepos] = useState<Test[]>([]);
+  const [filteredRepos, setFilteredRepos] = useState<Repo[]>([]);
+  const [selectedTopic, setSelectedTopic] = useState<string>("");
 
   useEffect(() => {
     async function getRepos() {
@@ -42,11 +43,31 @@ export default function Fetch({ supabase }: any) {
     getRepos();
   }, []);
 
+  useEffect(() => {
+    if (selectedTopic === "") {
+      setFilteredRepos(repos);
+    } else {
+      const filtered = repos.filter((repo) =>
+        repo.repositoryTopics?.nodes?.some(
+          (topic) => topic.topic.name === selectedTopic
+        )
+      );
+      setFilteredRepos(filtered);
+    }
+  }, [repos, selectedTopic]);
+
   return (
     <div>
       <div className="carousel overflow-hidden cursor-grabbing">
         <div className="inner-carousel flex flex-col">
-          {repos.map((repo) => (
+          <div>
+            <button onClick={() => setSelectedTopic("react")}>React</button>
+            <button onClick={() => setSelectedTopic("typescript")}>
+              TypeScript
+            </button>
+            <button onClick={() => setSelectedTopic("")}>Clear Filter</button>
+          </div>
+          {filteredRepos.map((repo) => (
             <div
               className="item rounded-lg shadow-lg p-3 m-3 min-w-fit bg-white"
               key={repo.id}
