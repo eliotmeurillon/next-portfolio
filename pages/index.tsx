@@ -19,7 +19,6 @@ interface Test {
 export default function Home({ supabase }: any) {
   const [localStorageAvailable, setLocalStorageAvailable] = useState(false);
   const [activeTab, setActiveTab] = useState("portfolio");
-  const [testRepos, setTestRepos] = useState<Test[]>([]);
 
   const handlePortfolioClick = () => {
     setActiveTab("portfolio");
@@ -31,13 +30,6 @@ export default function Home({ supabase }: any) {
 
   useEffect(() => {
     setLocalStorageAvailable(!!window.localStorage);
-    const fetchData = async () => {
-      const response = await fetch("/api/supabase");
-      const data = await response.json();
-      setTestRepos(data);
-    };
-
-    fetchData();
   }, []);
 
   return (
