@@ -10,10 +10,10 @@ interface Repository {
     name: string | null;
     color: string | null;
   };
-  repositoryTopics: {
+  repositoryTopics?: {
     nodes: {
       topic: {
-        name: string | null;
+        name: string;
       };
     }[];
   };
