@@ -17,6 +17,7 @@ interface Repository {
       };
     }[];
   };
+  illu_url: null;
 }
 
 interface Viewer {

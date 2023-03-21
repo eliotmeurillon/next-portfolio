@@ -18,12 +18,7 @@ interface Repo {
       };
     }[];
   };
-}
-
-interface Test {
-  id: string;
-  title: string;
-  content: string;
+  illu_url: string;
 }
 
 export default function Fetch({ supabase }: any) {
@@ -82,6 +77,7 @@ export default function Fetch({ supabase }: any) {
               >
                 Visit Repo
               </a>
+              <img src={repo.illu_url} alt="testillu" />
               <ul>
                 {repo.repositoryTopics?.nodes?.map((topic) => (
                   <li
