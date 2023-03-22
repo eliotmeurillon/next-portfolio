@@ -3,6 +3,7 @@ import { createClient } from "@supabase/supabase-js";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 interface Repository {
+  id: string;
   name: string;
   description: string | null;
   url: string;
@@ -69,10 +70,11 @@ export default async function handler(
     const { viewer } = await graphQLClient.request<{ viewer: Viewer }>(query);
 
     const { data: repos, error } = await supabase
-      .from("repos")
-      .upsert(viewer.repositories.nodes, {
-        onConflict: "name"
-      });
+  .from("repos")
+  .upsert(viewer.repositories.nodes, {
+    onConflict: "name",
+  });
+
 
     if (error) {
       throw new Error(error.message);
