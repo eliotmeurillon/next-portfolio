@@ -74,7 +74,7 @@ export default async function handler(
       url: repo.url,
       primary_language_name: repo.primaryLanguage?.name ?? null,
       primary_language_color: repo.primaryLanguage?.color ?? null,
-      topics: repo.repositoryTopics.nodes.map((node) => node.topic.name),
+      repositoryTopics: repo.repositoryTopics.nodes.map((node) => node.topic.name),
     }));
 
     console.log(repos);
