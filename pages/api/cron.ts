@@ -47,6 +47,7 @@ export default async function handler(
         viewer {
           repositories(first: 100) {
             nodes {
+              id
               name
               description
               url
