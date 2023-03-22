@@ -70,7 +70,9 @@ export default async function handler(
 
     const { data: repos, error } = await supabase
       .from("repos")
-      .insert(viewer.repositories.nodes);
+      .insert(viewer.repositories.nodes, {
+        onConflict: "name"
+      });
 
     if (error) {
       throw new Error(error.message);
