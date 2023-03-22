@@ -6,7 +6,7 @@ interface Repository {
   name: string;
   description: string | null;
   url: string;
-  primmaryLanguage: {
+  primaryLanguage: {
     name: string | null;
     color: string | null;
   };
@@ -68,9 +68,21 @@ export default async function handler(
 
     const { viewer } = await graphQLClient.request<{ viewer: Viewer }>(query);
 
-    const { data: repos, error } = await supabase
+    const repos = viewer.repositories.nodes.map((repo) => ({
+      name: repo.name,
+      description: repo.description,
+      url: repo.url,
+      primary_language_name: repo.primaryLanguage.name,
+      primary_language_color: repo.primaryLanguage.color,
+      topics: repo.repositoryTopics.nodes.map((node) => node.topic.name),
+    }));
+
+    console.log(repos);
+
+    const { data, error } = await supabase
       .from("repos")
-      .insert(viewer.repositories.nodes);
+      .upsert(repos, { onConflict: 'handle' })
+      .select();
 
     if (error) {
       throw new Error(error.message);
