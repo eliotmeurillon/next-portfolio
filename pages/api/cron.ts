@@ -72,8 +72,8 @@ export default async function handler(
       name: repo.name,
       description: repo.description,
       url: repo.url,
-      primary_language_name: repo.primaryLanguage.name,
-      primary_language_color: repo.primaryLanguage.color,
+      primary_language_name: repo.primaryLanguage?.name ?? null,
+      primary_language_color: repo.primaryLanguage?.color ?? null,
       topics: repo.repositoryTopics.nodes.map((node) => node.topic.name),
     }));
 
