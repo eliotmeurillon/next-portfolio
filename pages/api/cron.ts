@@ -84,8 +84,8 @@ export default async function handler(
 
     const { data, error } = await supabase
       .from("repos")
-      //  .upsert(repos, { onConflict: 'repo_id' })
-       .insert(repos)
+      .upsert(repos, { onConflict: 'repo_id' })
+      //  .insert(repos)
       .select();
 
     if (error) {
