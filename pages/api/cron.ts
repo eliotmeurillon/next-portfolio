@@ -68,17 +68,35 @@ export default async function handler(
 
     const { viewer } = await graphQLClient.request<{ viewer: Viewer }>(query);
 
-    const { data: repos, error } = await supabase
+    const { data: existingNames, error: selectError } = await supabase
       .from("repos")
-      .insert(viewer.repositories.nodes);
+      .select("name");
 
-    if (error) {
-      throw new Error(error.message);
+    if (selectError) {
+      throw new Error(selectError.message);
+    }
+
+    const newRepos = viewer.repositories.nodes.filter((repo) => {
+      return !existingNames.some((name : any) => name === repo.name);
+    });
+
+    if (newRepos.length === 0) {
+      res.status(200).json({
+        message: "Aucun nouveau dépôt à ajouter.",
+      });
+      return;
+    }
+
+    const { data: insertResult, error: insertError } = await supabase
+      .from("repos")
+      .insert(newRepos);
+
+    if (insertError) {
+      throw new Error(insertError.message);
     }
 
     res.status(200).json({
-      message:
-        "Les dépôts ont été récupérés avec succès et stockés dans la base de données Supabase.",
+      message: `${newRepos.length} nouveaux dépôts ont été ajoutés avec succès.`,
     });
   } catch (error) {
     console.error(error);
