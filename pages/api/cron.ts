@@ -68,10 +68,19 @@ export default async function handler(
 
     const { viewer } = await graphQLClient.request<{ viewer: Viewer }>(query);
 
-    const { data: repos, error } = await supabase
+    const repos = viewer.repositories.nodes.map((repo) => ({
+      name: repo.name,
+      description: repo.description,
+      url: repo.url,
+      primary_language_name: repo.primmaryLanguage.name,
+      primary_language_color: repo.primmaryLanguage.color,
+      topics: repo.repositoryTopics.nodes.map((node) => node.topic.name),
+    }));
+
+    const { data, error } = await supabase
       .from("repos")
-      .upsert({ viewer }, { onConflict: 'handle' })
-  .select()
+      .upsert(repos, { onConflict: 'name' })
+      .select();
 
     if (error) {
       throw new Error(error.message);
