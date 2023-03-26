@@ -66,7 +66,7 @@ export default function Fetch({ supabase }: any) {
         <div className="inner-carousel flex flex-col">
           <div className="flex flex-row gap-1 w-full justify-center">
             <button
-              className={`flex flex-row items-center bg-white dark:bg-darkBlue-500 dark:text-white ${
+              className={`flex flex-row items-center rounded-lg bg-white dark:bg-darkBlue-500 dark:text-white ${
                 selectedTopic === "react"
                   ? "border-2 border-green-500"
                   : "border-2 border-transparent"
@@ -82,7 +82,7 @@ export default function Fetch({ supabase }: any) {
               <p>React</p>
             </button>
             <button
-              className={`flex flex-row items-center bg-white dark:bg-darkBlue-500 dark:text-white ${
+              className={`flex flex-row items-center rounded-lg bg-white dark:bg-darkBlue-500  dark:text-white ${
                 selectedTopic === "typescript"
                   ? "border-2 border-green-500"
                   : "border-2 border-transparent"
@@ -98,7 +98,7 @@ export default function Fetch({ supabase }: any) {
               <p>TypeScript</p>
             </button>
             <button
-              className="flex flex-row items-center bg-white dark:bg-darkBlue-500 dark:text-white"
+              className="flex flex-row items-center rounded-lg bg-white dark:bg-darkBlue-500 dark:text-white"
               onClick={() => {
                 setSelectedTopic("");
                 if (typeof localStorage !== "undefined") {
