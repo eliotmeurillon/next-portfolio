@@ -114,8 +114,10 @@ export default function Fetch({ supabase }: any) {
                   {repo.repositoryTopics?.map((topic) => (
                     <li
                       className="inline-flex items-center justify-center px-2 py-1 mr-2 text-xs font-bold leading-none text-red-100 bg-red-600 rounded-full"
-                      key={topic ? topic : "no-topic"}
-                    ></li>
+                      key={topic}
+                    >
+                      {topic}
+                    </li>
                   ))}
                 </ul>
               </div>
