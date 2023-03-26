@@ -12,7 +12,7 @@ interface Repo {
   updatedAt: string;
   primary_language_name?: string;
   repositoryTopics?: string[];
-  illu_url: string;
+  illu_url: string | null;
 }
 
 export default function Fetch({ supabase }: any) {
@@ -67,7 +67,9 @@ export default function Fetch({ supabase }: any) {
           <div className="flex flex-row gap-1 w-full justify-center">
             <button
               className={`flex flex-row items-center bg-white dark:bg-darkBlue-500 dark:text-white ${
-                selectedTopic === "react" ? "border-2 border-green-500" : ""
+                selectedTopic === "react"
+                  ? "border-2 border-green-500"
+                  : "border-2 border-transparent"
               } `}
               onClick={() => {
                 setSelectedTopic("react");
@@ -83,7 +85,7 @@ export default function Fetch({ supabase }: any) {
               className={`flex flex-row items-center bg-white dark:bg-darkBlue-500 dark:text-white ${
                 selectedTopic === "typescript"
                   ? "border-2 border-green-500"
-                  : ""
+                  : "border-2 border-transparent"
               } `}
               onClick={() => {
                 setSelectedTopic("typescript");
@@ -124,7 +126,13 @@ export default function Fetch({ supabase }: any) {
                 >
                   Visit Repo
                 </a>
-                <img src={repo.illu_url} alt="testillu" />
+                {/* if repo.illu_url is null return p "null" */}
+
+                {repo.illu_url ? (
+                  <img src={repo.illu_url} alt="illustration" />
+                ) : (
+                  <p>no image</p>
+                )}
                 <ul>
                   {repo.repositoryTopics?.map((topic) => (
                     <li
