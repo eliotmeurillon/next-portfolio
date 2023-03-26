@@ -1,5 +1,8 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { DiReact } from "react-icons/di";
+import { DiPython } from "react-icons/di";
+import { RxCross2 } from "react-icons/rx";
 
 interface Repo {
   id: string;
@@ -27,7 +30,7 @@ export default function Fetch({ supabase }: any) {
       if (repos) setRepos(repos);
     }
     getRepos();
-  }, []);
+  }, [supabase]);
 
   useEffect(() => {
     if (typeof localStorage !== "undefined") {
@@ -61,8 +64,9 @@ export default function Fetch({ supabase }: any) {
     <div>
       <div className="carousel overflow-hidden cursor-grabbing">
         <div className="inner-carousel flex flex-col">
-          <div>
+          <div className="flex flex-row gap-1 w-full justify-center">
             <button
+              className="flex flex-row items-center bg-white dark:bg-darkBlue-500 dark:text-white"
               onClick={() => {
                 setSelectedTopic("react");
                 if (typeof localStorage !== "undefined") {
@@ -70,9 +74,11 @@ export default function Fetch({ supabase }: any) {
                 }
               }}
             >
-              React
+              <DiReact />
+              <p>React</p>
             </button>
             <button
+              className="flex flex-row items-center bg-white dark:bg-darkBlue-500 dark:text-white"
               onClick={() => {
                 setSelectedTopic("typescript");
                 if (typeof localStorage !== "undefined") {
@@ -80,9 +86,11 @@ export default function Fetch({ supabase }: any) {
                 }
               }}
             >
-              TypeScript
+              <DiPython />
+              <p>TypeScript</p>
             </button>
             <button
+              className="flex flex-row items-center bg-white dark:bg-darkBlue-500 dark:text-white"
               onClick={() => {
                 setSelectedTopic("");
                 if (typeof localStorage !== "undefined") {
@@ -90,7 +98,8 @@ export default function Fetch({ supabase }: any) {
                 }
               }}
             >
-              Clear Filter
+              <RxCross2 />
+              <p>Clear Filter</p>
             </button>
           </div>
           {filteredRepos &&

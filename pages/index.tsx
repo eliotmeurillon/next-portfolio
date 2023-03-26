@@ -58,28 +58,30 @@ export default function Home({ supabase }: any) {
           </div>
           <div className="flex flex-row justify-evenly py-3 px-3 space-x-3">
             <div className="flex flex-row items-center h-11 px-6 space-x-2 bg-green-500 rounded-lg">
-              <button>Download CV</button>
-              <HiDownload />
+              <button className="text-white">Download CV</button>
+              <HiDownload color="white" />
             </div>
             <button className="h-11 px-6 bg-white rounded-lg">
-              <HiOutlineMail />
+              <HiOutlineMail color="rgb(34 197 94)" />
             </button>
             <button className="h-11 px-6 bg-white rounded-lg">
-              <FiLinkedin />
+              <FiLinkedin color="rgb(34 197 94)" />
             </button>
           </div>
-          <div className="flex flex-row justify-evenly bg-white rounded-2xl py-3">
+          <div className="flex flex-row justify-evenly bg-white  rounded-2xl px-3 py-3 text-green-500 dark:bg-darkBlue-500">
             <button
-              className={`h-12 rounded-xl ${
-                activeTab === "portfolio" ? "bg-gray-100" : ""
+              className={`h-12 rounded-xl w-1/2  ${
+                activeTab === "portfolio"
+                  ? "bg-gray-100 dark:bg-darkBlue-600"
+                  : ""
               }`}
               onClick={handlePortfolioClick}
             >
               Portfolio
             </button>
             <button
-              className={`h-12 rounded-xl ${
-                activeTab === "about" ? "bg-gray-100" : ""
+              className={`h-12 rounded-xl w-1/2 ${
+                activeTab === "about" ? "bg-gray-100 dark:bg-darkBlue-600" : ""
               }`}
               onClick={handleAboutClick}
             >
