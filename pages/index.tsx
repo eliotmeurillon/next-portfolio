@@ -56,23 +56,23 @@ export default function Home({ supabase }: any) {
               Développeur Full-Stack
             </h2>
           </div>
-          <a
-            href="/files/Eliot_Meurillon_CV_Efrei_v2.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex flex-row justify-evenly py-3 px-3 space-x-3"
-          >
-            <div className="flex flex-row items-center h-11 px-6 space-x-2 bg-green-500 rounded-lg">
+          <div className="flex flex-row justify-evenly py-3 px-3 space-x-3">
+            <a
+              href="/files/Eliot_Meurillon_CV_Efrei_v2.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex flex-row items-center h-11 px-6 space-x-2 bg-green-500 rounded-lg"
+            >
               <button className="text-white">Download CV</button>
               <HiDownload color="white" />
-            </div>
+            </a>
             <button className="h-11 px-6 bg-white rounded-lg">
               <HiOutlineMail color="rgb(34 197 94)" />
             </button>
             <button className="h-11 px-6 bg-white rounded-lg">
               <FiLinkedin color="rgb(34 197 94)" />
             </button>
-          </a>
+          </div>
           <div className="flex flex-row justify-evenly bg-white  rounded-2xl px-3 py-3 text-green-500 dark:bg-darkBlue-500">
             <button
               className={`h-12 rounded-xl w-1/2  ${
