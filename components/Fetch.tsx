@@ -7,17 +7,8 @@ interface Repo {
   description?: string;
   url: string;
   updatedAt: string;
-  primaryLanguage?: {
-    name: string;
-    color: string;
-  };
-  repositoryTopics?: {
-    nodes: {
-      topic: {
-        name: string;
-      };
-    }[];
-  };
+  primary_language_name?: string;
+  repositoryTopics?: string[];
   illu_url: string;
 }
 
@@ -39,28 +30,68 @@ export default function Fetch({ supabase }: any) {
   }, []);
 
   useEffect(() => {
+    if (typeof localStorage !== "undefined") {
+      const selectedTopicLocalStorage = localStorage.getItem("selectedTopic");
+      if (selectedTopicLocalStorage !== null) {
+        setSelectedTopic(selectedTopicLocalStorage);
+      }
+    }
+  }, []);
+
+  useEffect(() => {
     if (selectedTopic === "") {
       setFilteredRepos(repos);
     } else {
-      const filtered = repos.filter((repo) =>
-        repo.repositoryTopics?.nodes?.some(
-          (topic) => topic.topic.name === selectedTopic
-        )
+      setFilteredRepos(
+        repos.filter((repo) => {
+          return (
+            repo.primary_language_name?.toLowerCase() ===
+              selectedTopic.toLowerCase() ||
+            (repo.repositoryTopics?.findIndex((node) => {
+              return node.toLowerCase() === selectedTopic.toLowerCase();
+            }) !== -1 &&
+              repo.primary_language_name?.toLowerCase() !== "typescript")
+          );
+        })
       );
-      setFilteredRepos(filtered);
     }
-  }, [repos, selectedTopic]);
+  }, [selectedTopic, repos]);
 
   return (
     <div>
       <div className="carousel overflow-hidden cursor-grabbing">
         <div className="inner-carousel flex flex-col">
           <div>
-            <button onClick={() => setSelectedTopic("react")}>React</button>
-            <button onClick={() => setSelectedTopic("typescript")}>
+            <button
+              onClick={() => {
+                setSelectedTopic("react");
+                if (typeof localStorage !== "undefined") {
+                  localStorage.setItem("selectedTopic", "react");
+                }
+              }}
+            >
+              React
+            </button>
+            <button
+              onClick={() => {
+                setSelectedTopic("typescript");
+                if (typeof localStorage !== "undefined") {
+                  localStorage.setItem("selectedTopic", "typescript");
+                }
+              }}
+            >
               TypeScript
             </button>
-            <button onClick={() => setSelectedTopic("")}>Clear Filter</button>
+            <button
+              onClick={() => {
+                setSelectedTopic("");
+                if (typeof localStorage !== "undefined") {
+                  localStorage.removeItem("selectedTopic");
+                }
+              }}
+            >
+              Clear Filter
+            </button>
           </div>
           {filteredRepos &&
             filteredRepos.map((repo) => (
@@ -80,13 +111,11 @@ export default function Fetch({ supabase }: any) {
                 </a>
                 <img src={repo.illu_url} alt="testillu" />
                 <ul>
-                  {repo.repositoryTopics?.nodes?.map((topic) => (
+                  {repo.repositoryTopics?.map((topic) => (
                     <li
                       className="inline-flex items-center justify-center px-2 py-1 mr-2 text-xs font-bold leading-none text-red-100 bg-red-600 rounded-full"
-                      key={topic.topic.name}
-                    >
-                      {topic.topic.name}
-                    </li>
+                      key={topic ? topic : "no-topic"}
+                    ></li>
                   ))}
                 </ul>
               </div>
