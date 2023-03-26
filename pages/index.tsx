@@ -42,7 +42,7 @@ export default function Home({ supabase }: any) {
       </Head>
       <header className="fixed top-0 left-0 right-0 bg-white dark:bg-darkBlue-500 dark:text-white">
         <div className="flex justify-between items-center p-3 h-16">
-          <h1>Welcome to Next.js!</h1>
+          <h1 className="font-bold">EM</h1>
           {localStorageAvailable && <Switcher />}
         </div>
       </header>
