@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import { DiReact } from "react-icons/di";
 import { DiPython } from "react-icons/di";
 import { RxCross2 } from "react-icons/rx";
@@ -118,7 +119,12 @@ const Repos = ({ jsonRepos }: Props) => {
                 {/* if repo.illu_url is null return p "null" */}
 
                 {repo.illu_url ? (
-                  <img src={repo.illu_url} alt="illustration" />
+                  <Image
+                    src={repo.illu_url}
+                    width={1000}
+                    height={1000}
+                    alt="illustration"
+                  />
                 ) : (
                   <p>no image</p>
                 )}
