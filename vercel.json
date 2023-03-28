@@ -4,5 +4,16 @@
       "path": "/api/cron",
       "schedule": "0 10 * * *"
     }
+  ],
+  "headers": [
+    {
+      "source": "/test",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=3600"
+        }
+      ]
+    }
   ]
 }
