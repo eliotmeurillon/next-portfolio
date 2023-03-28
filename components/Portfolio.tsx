@@ -104,23 +104,12 @@ const Repos = ({ jsonRepos }: Props) => {
           {filteredRepos &&
             filteredRepos.map((repo) => (
               <div
-                className="item rounded-lg shadow-lg p-3 m-3 min-w-fit bg-white"
+                className="item p-3 m-3 min-w-fit bg-transparent dark:bg-darkBlue-500 dark:text-white"
                 key={repo.id}
               >
-                <h2 className="text-xl">{repo.name}</h2>
-                <p>{repo.description}</p>
-                <a
-                  className="text-base"
-                  target="_blank"
-                  rel="noopener"
-                  href={repo.url}
-                >
-                  Visit Repo
-                </a>
-                {/* if repo.illu_url is null return p "null" */}
-
                 {repo.illu_url ? (
                   <Image
+                    className="rounded-lg"
                     src={repo.illu_url}
                     width={1000}
                     height={1000}
@@ -129,16 +118,12 @@ const Repos = ({ jsonRepos }: Props) => {
                 ) : (
                   <p>no image</p>
                 )}
-                <ul>
+                <ul className="inline-flex space-x-2 text-xs font-bold text-green-500">
                   {repo.repositoryTopics?.map((topic) => (
-                    <li
-                      className="inline-flex items-center justify-center px-2 py-1 mr-2 text-xs font-bold leading-none text-red-100 bg-red-600 rounded-full"
-                      key={topic}
-                    >
-                      {topic}
-                    </li>
+                    <li key={topic}>{topic}</li>
                   ))}
                 </ul>
+                <h2 className="text-xl">{repo.name}</h2>
               </div>
             ))}
         </div>
