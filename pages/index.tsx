@@ -100,7 +100,12 @@ export default function Home({ jsonRepos }: Props) {
 interface Repos {
   id: string;
   name: string;
+  description?: string;
   url: string;
+  updatedAt: string;
+  primary_language_name?: string;
+  repositoryTopics?: string[];
+  illu_url: string | null;
 }
 
 interface Props {

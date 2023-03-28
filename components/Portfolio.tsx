@@ -3,6 +3,7 @@ import Image from "next/image";
 import { DiReact } from "react-icons/di";
 import { DiPython } from "react-icons/di";
 import { RxCross2 } from "react-icons/rx";
+
 interface Repos {
   id: string;
   name: string;
