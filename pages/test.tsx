@@ -9,6 +9,7 @@ interface Post {
 
 interface Props {
   jsonData: Post[];
+  revalidate: number;
 }
 
 const Test = ({ jsonData }: Props) => {
@@ -25,7 +26,7 @@ const Test = ({ jsonData }: Props) => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getServerSideProps: GetServerSideProps<Props> = async () => {
   // fetch the data from Supabase
   const supabase = createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL as string,
@@ -40,7 +41,10 @@ export const getServerSideProps: GetServerSideProps = async () => {
   const res = await fetch("https://jsonplaceholder.typicode.com/posts");
   const posts = await res.json();
   return {
-    props: { jsonData },
+    props: {
+      jsonData: jsonData,
+      revalidate: 3600, // revalidate every hour
+    },
   };
 };
 
