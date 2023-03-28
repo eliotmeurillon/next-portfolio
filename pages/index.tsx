@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { GetServerSideProps } from "next";
 import Head from "next/head";
 import Image from "next/image";
 import styles from "@/styles/Home.module.css";
@@ -9,14 +10,9 @@ import { HiDownload } from "react-icons/hi";
 import { HiOutlineMail } from "react-icons/hi";
 import { FiLinkedin } from "react-icons/fi";
 import Test from "@/components/Test";
+import { createClient } from "@supabase/supabase-js";
 
-interface Test {
-  id: string;
-  title: string;
-  content: string;
-}
-
-export default function Home({ supabase }: any) {
+export default function Home({ jsonRepos }: Props) {
   const [localStorageAvailable, setLocalStorageAvailable] = useState(false);
   const [activeTab, setActiveTab] = useState("portfolio");
 
@@ -93,10 +89,45 @@ export default function Home({ supabase }: any) {
               À propos
             </button>
           </div>
-          {activeTab === "portfolio" && <Portfolio supabase={supabase} />}
+          {activeTab === "portfolio" && <Portfolio jsonRepos={jsonRepos} />}
           {activeTab === "about" && <About />}
         </div>
       </main>
     </>
   );
 }
+
+interface Repos {
+  id: string;
+  name: string;
+  url: string;
+}
+
+interface Props {
+  jsonRepos: Repos[];
+}
+
+export const getServerSideProps: GetServerSideProps<Props> = async ({
+  req,
+  res,
+}) => {
+  // set cache to last for one hour
+  res.setHeader("Cache-Control", "public, max-age=3600");
+
+  // fetch the data from Supabase
+  const supabase = createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL as string,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY as string
+  );
+  const { data, error } = await supabase.from("repos").select("*");
+
+  // convert the data to JSON format
+  const jsonRepos = await JSON.parse(JSON.stringify(data));
+  // console.log(jsonData);
+
+  return {
+    props: {
+      jsonRepos: jsonRepos,
+    },
+  };
+};
