@@ -104,7 +104,7 @@ const Repos = ({ jsonRepos }: Props) => {
           {filteredRepos &&
             filteredRepos.map((repo) => (
               <div
-                className="item p-3 m-3 min-w-fit bg-transparent dark:bg-darkBlue-500 dark:text-white"
+                className="item p-3 m-3 min-w-fit bg-transparent"
                 key={repo.id}
               >
                 {repo.illu_url ? (
@@ -123,7 +123,7 @@ const Repos = ({ jsonRepos }: Props) => {
                     <li key={topic}>{topic}</li>
                   ))}
                 </ul>
-                <h2 className="text-xl">{repo.name}</h2>
+                <h2 className="text-xl dark:text-white">{repo.name}</h2>
               </div>
             ))}
         </div>
